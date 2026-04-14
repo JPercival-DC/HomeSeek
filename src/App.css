@@ -1,0 +1,69 @@
+.App {
+  text-align: center;  
+}
+
+.hero {
+  align-content: center;
+  text-align: center;
+  padding: 80px;
+  background-color: #E6EAFF;
+  min-height: 500px;
+}
+
+.hero-v2 {
+  align-content: center;
+  text-align: center;
+  padding: 80px;
+  background-color: #E6EAFF;
+  min-height: 200px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.featured {
+  padding: 50px 100px 10px 100px;
+}
+
+.featured h2 {
+  text-align: start;
+  margin-bottom: 5px;
+}
+
+.featured p {
+  margin-top: 0%;
+  margin-bottom: 30px;
+}
+
+.sec-3 {
+  align-content: center;  
+  text-align: center;
+  color: white;
+  padding: 10px 80px 10px 80px;
+  background-color: #004BEE;
+  min-height: 400px;
+}
+
+.browse-links { 
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    justify-content: center;
+}
+
+.browse-links a {
+  border: 1px solid white;
+  border-radius: 3%x;
+  color: white;
+  text-decoration: none;
+}
+
+.filter-container {
+  background-color: #E6EAFF;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}

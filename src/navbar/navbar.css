@@ -1,0 +1,14 @@
+.nav-container {
+    background-color: white;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links { 
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
