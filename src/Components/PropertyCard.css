@@ -1,4 +1,37 @@
 .property-card {
     border: 1px solid gray;
-    padding: 10px;
+    border-radius: 30px;
+    padding: 15px;
+    width: 300px;
+    height: 400px;
+}
+
+.property-card img {
+    min-height: 70%;
+    min-width: 100%;
+}
+
+.property-info {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    max-height: 30%;
+    min-height: 30%;
+    max-width: 300px;
+}
+
+.property-info h3 {
+    font-size: medium;
+    width: 90%;
+}
+
+.price-loc {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+}
+
+.price {
+    font-size: medium;
+    height: 50%;
 }

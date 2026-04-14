@@ -2,7 +2,7 @@
     background-color: #141228;
     min-height: 250px;
     color: white;
-    padding: 40px 20px;
+    padding: 40px 20px 0 20px;
 
 }
 
@@ -13,9 +13,17 @@
 
 }
 
+.footer-links li {    
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .footer-links a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 
@@ -23,8 +31,8 @@
     text-align: center;
     margin-right: 10%;
     margin-left: 10%;
-    margin-top: 3%;
+    margin-top: 20px;
     border-top: 1px solid #404040;
-    padding: 30px;
+    padding: 15px;
     
 }

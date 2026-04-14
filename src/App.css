@@ -3,7 +3,6 @@
 }
 
 .hero {
-  align-content: center;
   text-align: center;
   padding: 80px;
   background-color: #E6EAFF;
@@ -27,6 +26,8 @@
   padding: 50px 100px 10px 100px;
 }
 
+
+
 .featured h2 {
   text-align: start;
   margin-bottom: 5px;
@@ -34,7 +35,32 @@
 
 .featured p {
   margin-top: 0%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.featured-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-height: 110px;
+}
+
+.featured-header {
+  padding: 10px;
+}
+
+.featured-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.featured-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 30px;
+
 }
 
 .sec-3 {
