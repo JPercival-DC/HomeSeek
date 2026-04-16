@@ -1,6 +1,5 @@
 import PropertyCard from "./Components/PropertyCard";   
 import { Link } from "react-router-dom";
-import ListingNav from "./navbar/listing-nav";
 
 const properties = [
   {
@@ -31,7 +30,6 @@ function Home() {
         <div>
             <section className="hero">
                 <h1>Seek your Perfect Home</h1>
-                <ListingNav/>
             </section>
 
             <section className="featured">
@@ -56,10 +54,10 @@ function Home() {
             <section className="sec-3">
                 <h1>Ready to Find Your New Home?</h1>
                 <p>Join the thousands of happy renters who found their perfect place with HomeSeek</p>
-                <ul className="browse-links">
-                    <li><Link to="/listings">Browse Listings</Link></li>
-                    <li><Link to="/ListProperty">List Your Property</Link></li>
-                </ul>
+                <div className="browse-links">
+                    <Link to="/listings" className="btn">Browse Listings</Link>
+                    <Link to="/ListProperty" className="btn btn-outline">List Your Property</Link>
+                </div>
             </section>
         </div>
     );

@@ -1,17 +1,25 @@
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import homeSeekLogo from "../Assets/homeSeek_logo.png"; // Import the logo
 
 function Navbar1() {
   return (
     <nav className="nav-container">
-      <h2>HomeSeek</h2>
+      <div className="nav-brand">
+        <img src={homeSeekLogo} alt="HomeSeek Logo" className="nav-logo" />
+        <h2 className="brand-text">HomeSeek</h2>
+      </div>
 
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/listings">Listings</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/register">Register</Link></li>
+        <li><Link to="/" className="nav-link">Home</Link></li>
+        <li><Link to="/listings" className="nav-link">Listings</Link></li>
+        <li><Link to="/login" className="nav-link">Login</Link></li>
+        <li><Link to="/register" className="nav-link">Register</Link></li>
       </ul>
+
+      <div className="nav-mobile-menu">
+        <button className="mobile-menu-btn">☰</button>
+      </div>
     </nav>
   );
 }

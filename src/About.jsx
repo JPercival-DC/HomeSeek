@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./styles/About.css";
 
 function About() {
     return(
@@ -12,11 +13,12 @@ function About() {
                     
                 <p>
                     lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus, laborum voluptatem ab recusandae sed repellat quaerat dolorum, nisi officia quis consequuntur omnis repudiandae voluptates accusantium at doloremque perferendis fugiat maxime? lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus, laborum voluptatem ab recusandae sed repellat quaerat dolorum, nisi officia quis consequuntur omnis repudiandae voluptates accusantium at doloremque perferendis fugiat maxime?
-                
                 </p>
-            
+                
+                {/* Add a link back to home */}
+                <Link to="/" className="back-home">Back to Home</Link>
             </section>
-           </div>
+        </div>
     );
 }
 

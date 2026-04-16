@@ -1,5 +1,6 @@
 import PropertyCard from "./Components/PropertyCard";   
 import ListingNav from "./navbar/listing-nav";
+import "./styles/Listings.css";
 
 const properties = [
   {
@@ -23,15 +24,13 @@ const properties = [
     price: 4200,
     image: "/assets/house3.jpg"
   },
-
   {
     id: 4,
     name: "Lahug Boarding House",
-    location: "lahug",
+    location: "Lahug",
     price: 4500,
     image: "/assets/house3.jpg"
   },
-
   {
     id: 5,
     name: "IT City Boarding",
@@ -49,23 +48,25 @@ const properties = [
 ];
 
 function Listings() {
-    return (
-        <div>
-            <section className="hero-v2">
-                <h1>Seek your Perfect Home</h1>
-            </section>
+  return (
+    <div className="listings-page">
+      <section className="hero-v3">
+        <h1>Seek your Perfect Home</h1>
+      </section>
 
-            <section className="featured">
-                <h2>Properties</h2>
-                <div className="filter-container">
-                    <ListingNav/>
-                </div>
-                <div>
-                    {properties.map((property)=>( <PropertyCard key={property.id} property={property} />))}
-                </div>
-            </section>
-           </div>
-    );
+      <section className="featured">
+        <h2>Properties</h2>
+        <div className="filter-container">
+          <ListingNav/>
+        </div>
+        <div className="properties-vertical">
+          {properties.map((property) => ( 
+            <PropertyCard key={property.id} property={property} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
 }
 
 export default Listings;
