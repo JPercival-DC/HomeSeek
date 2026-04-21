@@ -36,12 +36,43 @@ function ListProperty() {
         <div className="hero-v2">
             <h2>Add Property</h2>
 
-            <form onSubmit={handleSubmit}>
-                <input name="name" placeholder="Name" onChange={handleChange} />
-                <input name="location" placeholder="Location" onChange={handleChange} />
-                <input name="price" placeholder="Price" onChange={handleChange} />
-                <button type="submit">Submit Property</button>
-            </form>
+            <form className="property-form" onSubmit={handleSubmit}>
+                <h2 className="form-title">Add Property</h2>
+
+                <div className="form-group">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Property Name"
+                    onChange={handleChange}
+                    required
+                />
+                </div>
+
+                <div className="form-group">
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Location"
+                    onChange={handleChange}
+                    required
+                />
+                </div>
+
+                <div className="form-group">
+                <input
+                    type="number"
+                    name="price"
+                    placeholder="Price"
+                    onChange={handleChange}
+                    required
+                />
+                </div>
+
+                <button className="submit-btn" type="submit">
+                Submit Property
+                </button>
+                </form>
         </div>
     );
 }

@@ -24,12 +24,8 @@ function Listings() {
 
     return (
         <div>
-            <section className="hero-v2">
-                <h1>Seek your Perfect Home</h1>
-            </section>
 
             <section className="featured">
-                <h2>Properties</h2>
 
                 <div className="filter-container">
                     <ListingNav />

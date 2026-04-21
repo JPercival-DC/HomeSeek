@@ -23,6 +23,7 @@
 }
 
 .featured {
+  background-color: #E6EAFF;
   padding: 50px 100px 10px 100px;
 }
 
@@ -93,9 +94,60 @@
 }
 
 .filter-container {
-  background-color: #E6EAFF;
+  background-color: white;
+  border-radius: 30px;
   display: flex;
   justify-content: flex-start;
   gap: 10px;
   margin-bottom: 20px;
 }
+
+
+.property-form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+}
+
+.form-group input {
+  width: 90%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.submit-btn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #004BEE, #2563eb);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+

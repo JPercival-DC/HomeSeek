@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 function ListingNav(){
     return(
     <nav className="filter-nav">
-      <Link to="/ListProperty">Add a Property for Listing</Link>
+      <div className="link-button">
+      <Link className="detail-link" to="/ListProperty">Add Listing</Link>
+      </div>
       {/* <input type="text" value="Search"/>
       <div className="filter-btns">
         <input type="button" value="Location" />  

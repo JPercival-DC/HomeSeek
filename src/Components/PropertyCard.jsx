@@ -12,7 +12,8 @@ function PropertyCard({ property, large }) {
           <p className="location">{property.location}</p>
           <p className="price">₱{property.price}/mo</p>
         </div>
-        <Link to="/PropertyDetails">View Details</Link>
+        <div className="link-button">
+        <Link className="detail-link" to="/PropertyDetails">View Details</Link></div>
       </div>
     </div>
   );
