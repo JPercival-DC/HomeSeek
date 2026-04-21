@@ -9,6 +9,9 @@ import ListProperty from './ListProperty';
 import About from './About';
 import Contact from './Contact';
 import Follow from './Follow';
+import Profile from './Profile';
+import ForgotPassword from './ForgotPassword';
+import PropertyDetails from './PropertyDetails';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +27,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/follow" element={<Follow />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/PropertyDetails" element={<PropertyDetails />} />
+
       </Routes>
       <Footer/>
     </BrowserRouter>

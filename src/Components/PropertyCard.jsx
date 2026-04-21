@@ -1,18 +1,22 @@
+import { Link } from "react-router-dom";
 import "./PropertyCard.css";
 
-function PropertyCard({ property }) {
+
+function PropertyCard({ property, large }) {
   return (
-    <div className="property-card">
+    <div className={`property-card ${large ? "property-card-large" : ""}`}>
       <img src={property.image} alt={property.name} />
       <div className="property-info">
         <h3>{property.name}</h3>
-        <div className="price-loc">
-          <p1 className="price">₱{property.price}/mo</p1>
-          <p1 className="location">{property.location}</p1>
+        <div className={`property-info ${large ? "property-info-large" : ""}`}>
+          <p className="location">{property.location}</p>
+          <p className="price">₱{property.price}/mo</p>
         </div>
+        <Link to="/PropertyDetails">View Details</Link>
       </div>
     </div>
   );
 }
+
 
 export default PropertyCard;

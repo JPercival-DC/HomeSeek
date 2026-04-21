@@ -63,6 +63,12 @@
 
 }
 
+.listing-properties {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .sec-3 {
   align-content: center;  
   text-align: center;

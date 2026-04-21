@@ -1,28 +1,46 @@
 .property-card {
     border: 1px solid gray;
     border-radius: 30px;
+    display: flex;
+    flex-direction: column;
     padding: 15px;
     width: 300px;
-    height: 400px;
+    height: 450px;
+}
+
+.property-card-large {
+    width: 900px;
+    height: 300px;    
+    margin-top: 40px;
+    flex-direction: row;
+    align-items: center;
 }
 
 .property-card img {
-    min-height: 70%;
-    min-width: 100%;
+    height: 280px;
+    min-height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.property-card-large img {
+    width: 300px;
+    height: 250px;
+    margin-right: 20px;
 }
 
 .property-info {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
     padding: 5px;
-    max-height: 30%;
-    min-height: 30%;
-    max-width: 300px;
+    flex: 1;
 }
 
 .property-info h3 {
     font-size: medium;
-    width: 90%;
+    margin: 10px;
 }
 
 .price-loc {
@@ -33,5 +51,4 @@
 
 .price {
     font-size: medium;
-    height: 50%;
 }
