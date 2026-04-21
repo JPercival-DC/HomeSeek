@@ -1,30 +1,7 @@
 import PropertyCard from "./Components/PropertyCard";   
 import { Link } from "react-router-dom";
 import ListingNav from "./navbar/listing-nav";
-
-const properties = [
-  {
-    id: 1,
-    name: "Cozy Boarding House",
-    location: "Cebu City",
-    price: 3500,
-    image: "/assets/house1.jpg"
-  },
-  {
-    id: 2,
-    name: "Student Friendly Room",
-    location: "Lahug",
-    price: 2800,
-    image: "/assets/house2.jpg"
-  },
-  {
-    id: 3,
-    name: "City Center Boarding",
-    location: "IT Park",
-    price: 4200,
-    image: "/assets/house3.jpg"
-  }
-];
+import properties from "./data/properties";
 
 function Home() {
     return (
@@ -49,7 +26,7 @@ function Home() {
                 </div>
 
                 <div className="featured-cards">
-                    {properties.map((property)=>( <PropertyCard key={property.id} property={property} />))}
+                    {properties.filter((property)=>property.featured).map((property)=>( <PropertyCard key={property.id} property={property} />))}
                 </div>
             </section>
 

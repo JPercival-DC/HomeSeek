@@ -1,0 +1,115 @@
+import { useState, useEffect } from "react";
+import PropertyCard from "./Components/PropertyCard";
+import defaultProperties from "./properties";
+
+function Listings() {
+
+    const [properties, setProperties] = useState([]);
+
+    useEffect(() => {
+
+        const stored = JSON.parse(localStorage.getItem("properties")) || [];
+
+        // combine default + added
+        const combined = [...defaultProperties, ...stored];
+
+        setProperties(combined);
+
+    }, []);
+
+    return (
+        <div>
+            <h2>Properties</h2>
+
+            <div className="listing-properties">
+                {properties.map((property) => (
+                    <PropertyCard
+                        key={property.id}
+                        property={property}
+                        large
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default Listings;
+
+
+import { useState } from "react";
+
+function AddProperty() {
+
+    const [form, setForm] = useState({
+        name: "",
+        location: "",
+        price: "",
+        image: ""
+    });
+
+    function handleChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const existing = JSON.parse(localStorage.getItem("properties")) || [];
+
+        const newProperty = {
+            id: Date.now(),
+            name: form.name,
+            location: form.location,
+            price: Number(form.price),
+            image: form.image
+        };
+
+        const updated = [...existing, newProperty];
+
+        localStorage.setItem("properties", JSON.stringify(updated));
+
+        alert("Property Added!");
+    }
+
+    return (
+        <div>
+            <h2>Add Property</h2>
+
+            <form onSubmit={handleSubmit}>
+                <input name="name" placeholder="Name" onChange={handleChange} />
+                <input name="location" placeholder="Location" onChange={handleChange} />
+                <input name="price" placeholder="Price" onChange={handleChange} />
+                <input name="image" placeholder="Image URL" onChange={handleChange} />
+
+                <button type="submit">Add Property</button>
+            </form>
+        </div>
+    );
+}
+
+export default AddProperty;
+
+
+import { Link } from "react-router-dom";
+
+function PropertyCard({ property, large }) {
+  return (
+    <div className={`property-card ${large ? "property-card-large" : ""}`}>
+      <img src={property.image} alt={property.name} />
+
+      <div className="property-info">
+        <h3>{property.name}</h3>
+
+        <Link to="/PropertyDetails">View Details</Link>
+
+        <div className="price-loc">
+          <p>₱{property.price}/mo</p>
+          <p>{property.location}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default PropertyCard;
