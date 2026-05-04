@@ -28,3 +28,19 @@
     justify-content: space-evenly;
 }
 
+.link-button {
+  display: inline-block;
+}
+
+.detail-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #004BEE, #2563eb);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 75, 238, 0.25);
+}

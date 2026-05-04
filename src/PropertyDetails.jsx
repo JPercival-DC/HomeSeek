@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 
+=======
+>>>>>>> 8930ca1b81e7fa098e07f23bd308a156a6d3ce7b
 function PropertyDetails() {
     return(
         <div>
