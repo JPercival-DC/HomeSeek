@@ -51,9 +51,7 @@
 }
 
 .price {
-    font-size: medium;
-<<<<<<< HEAD
-=======
+    font-size: 16px;
 }
 
 .link-button {
@@ -69,6 +67,5 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 75, 238, 0.25);
 }
