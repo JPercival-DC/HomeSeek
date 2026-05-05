@@ -1,0 +1,93 @@
+.add-property-page {
+    min-height: 100vh;
+    background: #E6EAFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* PAGE TITLE */
+.add-property-page h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.property-form {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+    /* TITLE */
+.form-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+    /* INPUT WRAPPER */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    /* INPUTS */
+.property-form input {
+    width: 95%;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    background: #f9fafb;
+    transition: all 0.2s ease;
+}
+
+.property-form input:focus {
+    background: #fff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+    /* LABEL STYLE (optional if you add labels later) */
+.form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #6b7280;
+}
+
+    /* BUTTON */
+.submit-btn {
+    background: #004BEE;
+    color: white;
+    border: none;
+    padding: 12px 28px;   /* slightly bigger than search-btn */
+    border-radius: 8px;
+    font-size: 1rem;      /* slightly larger */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* HOVER */
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 75, 238, 0.25);
+}
+
+/* ACTIVE */
+.submit-btn:active {
+    transform: scale(0.98);
+}
+

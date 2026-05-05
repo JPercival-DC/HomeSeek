@@ -1,0 +1,8 @@
+# React
+frontend/homeseek/node_modules
+
+# Spring Boot
+backend/homeseeksystem/target
+
+# Env files
+.env
