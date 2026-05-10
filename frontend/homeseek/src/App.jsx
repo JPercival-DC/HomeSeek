@@ -30,7 +30,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/follow" element={<Follow />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/PropertyDetails" element={<PropertyDetails />} />
+        <Route path="/PropertyDetails/:id" element={<PropertyDetails />} />
+        
         
         {/* Protected Routes - Only authenticated users */}
         <Route path="/profile" element={

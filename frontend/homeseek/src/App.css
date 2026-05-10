@@ -43,7 +43,8 @@
 
 .featured-v2 {
   background-color: #E6EAFF;
-  padding: 50px 100px 10px 100px;
+  padding: 50px 20px 10px 20px;
+  min-height: 100vh;
 }
 
 .featured h2 {
@@ -77,14 +78,20 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
   margin: 30px;
-
 }
 
 .listing-properties {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .sec-3 {
@@ -144,6 +151,40 @@
   opacity: 0.9;
 }
 
+/* Browse links styling */
+.browse-links a {
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+}
+
+.filter-container {
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Property Card Styles - Make sure these are not conflicting */
+.property-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure text is visible in property cards */
+.property-card h3,
+.property-card p,
+.property-card .location,
+.property-card .price {
+  color: #333;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .sec-3 {
     padding: 60px 20px;
@@ -159,30 +200,56 @@
     gap: 15px;
   }
   
-  /* .btn {
-    width: 200px;
-  } */
-}
-
-.browse-links { 
+  .featured {
+    padding: 30px 20px;
+  }
+  
+  .featured-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .featured-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-height: none;
+  }
+  
+  .featured-header {
+    text-align: center;
+  }
+  
+  .featured h2 {
+    text-align: center;
+  }
+  
+  .listing-properties {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+  .featured-v2 {
+    background-color: #E6EAFF;
+    padding: 40px 20px;
+    min-height: 100vh;
     display: flex;
-    list-style: none;
-    gap: 10px;
-    justify-content: center;
-}
+    flex-direction: column;
+    align-items: center;
+  }
 
-.browse-links a {
-  border: 1px solid white;
-  border-radius: 3%x;
-  color: white;
-  text-decoration: none;
-}
+  /* Property card container in listings */
+  .featured-v2 .listing-properties {
+      width: 100%;
+  }
 
-.filter-container {
-  background-color: white;
-  border-radius: 30px;
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-bottom: 20px;
+  /* Make sure property cards take full width in listings */
+  .property-card-large {
+      width: 100%;
+  }
 }
