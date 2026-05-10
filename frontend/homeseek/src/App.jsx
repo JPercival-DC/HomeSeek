@@ -12,25 +12,46 @@ import Follow from './Follow';
 import Profile from './Profile';
 import ForgotPassword from './ForgotPassword';
 import PropertyDetails from './PropertyDetails';
+import AdminDashboard from './AdminDashboard';
+import ProtectedRoute from './ProtectedRoute';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
-    <Routes>
+      <Navbar/>
+      <Routes>
+        {/* Public Routes - Anyone can access */}
         <Route path="/" element={<Home />} />
         <Route path="/listings" element={<Listings />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} /> 
-        <Route path="/ListProperty" element={<ListProperty />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/follow" element={<Follow />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/PropertyDetails" element={<PropertyDetails />} />
-
+        
+        {/* Protected Routes - Only authenticated users */}
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        
+        {/* List Property - Only owners and admins can access */}
+        <Route path="/ListProperty" element={
+          <ProtectedRoute allowedRoles={["owner", "admin"]}>
+            <ListProperty />
+          </ProtectedRoute>
+        } />
+        
+        {/* Admin Dashboard - Only admins can access */}
+        <Route path="/admin" element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
+            </ProtectedRoute>
+        } />
       </Routes>
       <Footer/>
     </BrowserRouter>

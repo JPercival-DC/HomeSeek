@@ -16,6 +16,10 @@ public class Property {
     private String type;
     private int rooms;
     private String availabilityStatus;
+    @Column(name = "owner_id")
+    private Long ownerId;
+
+
 
     // Getters and Setters
 
@@ -45,6 +49,10 @@ public class Property {
 
     public double getPrice() {
         return price;
+    }
+
+    public Long getOwnerId() { 
+        return ownerId; 
     }
 
     public void setPrice(double price) {
@@ -82,4 +90,9 @@ public class Property {
     public void setAvailabilityStatus(String availabilityStatus) {
         this.availabilityStatus = availabilityStatus;
     }
+
+    public void setOwnerId(Long ownerId) { 
+        this.ownerId = ownerId; 
+    }
+
 }

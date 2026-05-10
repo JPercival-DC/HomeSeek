@@ -9,15 +9,13 @@ import java.util.List;
 
 @Service
 public class PropertyService {
+    
     @Autowired
-    PropertyRepository repository;
-
-    public PropertyService() {}
+    private PropertyRepository repository;
 
     public Property addProperty(Property property) {
         return repository.save(property);
     }
-
 
     public Property getPropertyById(Long id) {
         return repository.findById(id).orElse(null);
@@ -28,9 +26,8 @@ public class PropertyService {
     }
 
     public Property updateProperty(Long id, Property updatedProperty) {
-
-    Property property = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Property not found"));
+        Property property = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
 
         property.setPropertyName(updatedProperty.getPropertyName());
         property.setAddress(updatedProperty.getAddress());
@@ -39,12 +36,16 @@ public class PropertyService {
         property.setType(updatedProperty.getType());
         property.setRooms(updatedProperty.getRooms());
         property.setAvailabilityStatus(updatedProperty.getAvailabilityStatus());
+        
+        // Update ownerId if provided
+        if (updatedProperty.getOwnerId() != null) {
+            property.setOwnerId(updatedProperty.getOwnerId());
+        }
 
         return repository.save(property);
     }
 
     public String deleteProperty(Long id) {
-
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return "Property " + id + " deleted successfully";
@@ -52,5 +53,21 @@ public class PropertyService {
             return "Property not found";
         }
     }
-
+    
+    public List<Property> getPropertiesByOwner(Long ownerId) {
+        return repository.findByOwnerId(ownerId);
+    }
+    
+    public List<Property> getAvailableProperties() {
+        return repository.findByAvailabilityStatus("Available");
+    }
+    
+    // Additional useful methods
+    public List<Property> getPropertiesByType(String type) {
+        return repository.findByType(type);
+    }
+    
+    public List<Property> searchProperties(String keyword) {
+        return repository.findByPropertyNameContainingIgnoreCase(keyword);
+    }
 }

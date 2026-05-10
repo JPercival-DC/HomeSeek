@@ -51,28 +51,33 @@
   gap: 30px;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #4a5568;
+  color: #4a5568 !important; /* Dark text color - visible */
   font-weight: 500;
   font-size: 1rem;
   padding: 8px 16px;
   border-radius: 8px;
   transition: all 0.3s ease;
   position: relative;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
 }
 
 .nav-link:hover {
-  color: #667eea;
+  color: #667eea !important;
   background-color: rgba(102, 126, 234, 0.1);
   transform: translateY(-2px);
 }
 
-/* Active Link Styling (optional - requires react-router-dom active links) */
+/* Active Link Styling */
 .nav-link.active {
-  color: #667eea;
+  color: #667eea !important;
   background-color: rgba(102, 126, 234, 0.15);
   font-weight: 600;
 }
@@ -87,6 +92,70 @@
   height: 3px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 2px;
+}
+
+/* Menu Container */
+.menu-container {
+  position: relative;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  border: 1px solid #e2e8f0;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #1e293b !important; /* Dark text color - visible */
+  background: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: 100%;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background: #f1f5f9;
+  color: #667eea !important;
+}
+
+/* Logout button specific styling */
+.dropdown-item.logout {
+  color: #ef4444 !important;
+  border-top: 1px solid #e2e8f0;
+}
+
+.dropdown-item.logout:hover {
+  background: #fef2f2;
+  color: #dc2626 !important;
 }
 
 /* Mobile Menu */
@@ -141,6 +210,7 @@
     display: block;
     text-align: center;
     padding: 12px;
+    color: #4a5568 !important;
   }
 
   .brand-text {
@@ -151,7 +221,21 @@
     width: 35px;
     height: 35px;
   }
+
+  /* Mobile dropdown adjustments */
+  .menu-container {
+    width: 100%;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    top: auto;
+    right: auto;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 }
+
 /* Add Listing Button */
 .link-button {
   display: inline-block;
