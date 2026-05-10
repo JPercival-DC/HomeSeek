@@ -8,6 +8,7 @@ function AdminDashboard() {
     const [users, setUsers] = useState([]);
     const [tenants, setTenants] = useState([]);
     const [owners, setOwners] = useState([]);
+    const [properties, setProperties] = useState([]);  // NEW
     const [statistics, setStatistics] = useState({
         totalUsers: 0,
         totalAdmins: 0,
@@ -26,7 +27,6 @@ function AdminDashboard() {
         phone: ""
     });
 
-    // Check if user is admin
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         if (!user || user.role !== "admin") {
@@ -34,7 +34,6 @@ function AdminDashboard() {
         }
     }, [navigate]);
 
-    // Fetch all data
     useEffect(() => {
         fetchData();
     }, []);
@@ -42,34 +41,60 @@ function AdminDashboard() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            // Fetch statistics
             const statsRes = await fetch("http://localhost:8080/api/admin/statistics");
             const statsData = await statsRes.json();
             setStatistics(statsData);
 
-            // Fetch admins
             const adminsRes = await fetch("http://localhost:8080/api/admin/all");
             const adminsData = await adminsRes.json();
             setAdmins(adminsData);
 
-            // Fetch all users
             const usersRes = await fetch("http://localhost:8080/api/admin/users");
             const usersData = await usersRes.json();
             setUsers(usersData);
 
-            // Fetch tenants
             const tenantsRes = await fetch("http://localhost:8080/api/admin/tenants");
             const tenantsData = await tenantsRes.json();
             setTenants(tenantsData);
 
-            // Fetch owners
             const ownersRes = await fetch("http://localhost:8080/api/admin/owners");
             const ownersData = await ownersRes.json();
             setOwners(ownersData);
+
+            // NEW: Fetch all properties (admin sees everything including Pending)
+            const propsRes = await fetch("http://localhost:8080/api/properties", {
+                headers: { "X-User-Role": "admin" }
+            });
+            const propsData = await propsRes.json();
+            setProperties(propsData);
+
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    // NEW: Approve or reject a property
+    const handlePropertyStatus = async (id, newStatus) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/properties/${id}/status`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-User-Role": "admin"
+                },
+                body: JSON.stringify({ availabilityStatus: newStatus })
+            });
+            if (response.ok) {
+                alert(`Property ${newStatus === "Available" ? "approved" : "rejected"} successfully!`);
+                fetchData();
+            } else {
+                alert("Failed to update property status");
+            }
+        } catch (error) {
+            console.error("Error updating property status:", error);
+            alert("Error connecting to server");
         }
     };
 
@@ -143,9 +168,16 @@ function AdminDashboard() {
         </div>
     );
 
+    // NEW: Badge color per status
+    const statusBadge = (status) => (
+        <span className={`role-badge role-${status.toLowerCase()}`}>{status}</span>
+    );
+
     if (loading) {
         return <div className="loading">Loading...</div>;
     }
+
+    const pendingCount = properties.filter(p => p.availabilityStatus === "Pending").length;
 
     return (
         <div className="admin-dashboard">
@@ -159,10 +191,10 @@ function AdminDashboard() {
                     <button onClick={() => setActiveTab("users")}>All Users</button>
                     <button onClick={() => setActiveTab("tenants")}>Tenants</button>
                     <button onClick={() => setActiveTab("owners")}>Owners</button>
-                    <button onClick={() => {
-                        localStorage.removeItem("user");
-                        navigate("/login");
-                    }}>Logout</button>
+                    {/* NEW: Shows pending count badge */}
+                    <button onClick={() => setActiveTab("properties")}>
+                        Properties {pendingCount > 0 && <span className="pending-badge">{pendingCount}</span>}
+                    </button>
                 </div>
             </nav>
 
@@ -333,6 +365,66 @@ function AdminDashboard() {
                                         <td>{owner.name}</td>
                                         <td>{owner.email}</td>
                                         <td>{owner.phone || "N/A"}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                {/* NEW: Properties approval tab */}
+                {activeTab === "properties" && (
+                    <div className="properties-tab">
+                        <h1>Property Listings</h1>
+                        <table className="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Type</th>
+                                    <th>Price</th>
+                                    <th>Rooms</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {properties.map(property => (
+                                    <tr key={property.propertyId}>
+                                        <td>{property.propertyId}</td>
+                                        <td>{property.propertyName}</td>
+                                        <td>{property.address}</td>
+                                        <td>{property.type || "N/A"}</td>
+                                        <td>₱{property.price?.toLocaleString()}</td>
+                                        <td>{property.rooms || "N/A"}</td>
+                                        <td>{statusBadge(property.availabilityStatus)}</td>
+                                        <td>
+                                            {property.availabilityStatus === "Pending" && (
+                                                <>
+                                                    <button
+                                                        className="btn-approve"
+                                                        onClick={() => handlePropertyStatus(property.propertyId, "Available")}
+                                                    >Approve</button>
+                                                    <button
+                                                        className="btn-delete"
+                                                        onClick={() => handlePropertyStatus(property.propertyId, "Rejected")}
+                                                    >Reject</button>
+                                                </>
+                                            )}
+                                            {property.availabilityStatus === "Available" && (
+                                                <button
+                                                    className="btn-delete"
+                                                    onClick={() => handlePropertyStatus(property.propertyId, "Rejected")}
+                                                >Revoke</button>
+                                            )}
+                                            {property.availabilityStatus === "Rejected" && (
+                                                <button
+                                                    className="btn-approve"
+                                                    onClick={() => handlePropertyStatus(property.propertyId, "Available")}
+                                                >Re-approve</button>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

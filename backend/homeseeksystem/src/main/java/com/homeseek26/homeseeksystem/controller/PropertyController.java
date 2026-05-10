@@ -24,7 +24,6 @@ public class PropertyController {
     public ResponseEntity<?> addProperty(@RequestBody Property property, 
                                         @RequestHeader(value = "X-User-Role", required = false) String userRole) {
         try {
-            // Check if user is authorized (owner or admin)
             if (userRole == null || (!"owner".equals(userRole) && !"admin".equals(userRole))) {
                 Map<String, String> error = new HashMap<>();
                 error.put("error", "Only owners and admins can list properties");
@@ -56,14 +55,55 @@ public class PropertyController {
         }
     }
 
-    // GET ALL PROPERTIES - Anyone can access
+    // GET ALL PROPERTIES
+    // ✅ Admins see everything (Pending, Available, Rejected)
+    // ✅ Everyone else only sees "Available" properties
     @GetMapping
-    public ResponseEntity<List<Property>> getAllProperties() {
+    public ResponseEntity<List<Property>> getAllProperties(
+            @RequestHeader(value = "X-User-Role", required = false) String userRole) {
         try {
-            List<Property> properties = propertyService.getAllProperties();
+            List<Property> properties;
+
+            if ("admin".equals(userRole)) {
+                properties = propertyService.getAllProperties();
+            } else {
+                properties = propertyService.getAvailableProperties();
+            }
+
             return ResponseEntity.ok(properties);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // ✅ NEW: APPROVE / REJECT PROPERTY - Admin only
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> updatePropertyStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body,
+            @RequestHeader(value = "X-User-Role", required = false) String userRole) {
+        try {
+            if (!"admin".equals(userRole)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("error", "Only admins can approve or reject properties"));
+            }
+
+            String newStatus = body.get("availabilityStatus");
+            if (newStatus == null || newStatus.isBlank()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "availabilityStatus is required"));
+            }
+
+            Property updated = propertyService.updatePropertyStatus(id, newStatus);
+            if (updated == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Property not found with id: " + id));
+            }
+
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -81,7 +121,6 @@ public class PropertyController {
                     .body(Map.of("error", "Property not found with id: " + id));
             }
             
-            // Check authorization: admin or the owner of the property
             if (userRole == null || (!"admin".equals(userRole) && !existingProperty.getOwnerId().equals(userId))) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("error", "You are not authorized to update this property"));
@@ -100,7 +139,6 @@ public class PropertyController {
     public ResponseEntity<?> deleteProperty(@PathVariable Long id,
                                            @RequestHeader(value = "X-User-Role", required = false) String userRole) {
         try {
-            // Check if user is admin
             if (userRole == null || !"admin".equals(userRole)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("error", "Only admins can delete properties"));
@@ -142,9 +180,7 @@ public class PropertyController {
     @GetMapping("/{id}/favorite")
     public ResponseEntity<?> getFavoriteStatus(@PathVariable Long id, @RequestParam Long userId) {
         try {
-            // This would check if user has favorited this property
             boolean isFavorite = false;
-            // Implementation depends on your Favorite entity
             return ResponseEntity.ok(isFavorite);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
@@ -155,7 +191,6 @@ public class PropertyController {
     @PostMapping("/{id}/favorite")
     public ResponseEntity<?> addToFavorites(@PathVariable Long id, @RequestParam Long userId) {
         try {
-            // Implementation to add to favorites
             return ResponseEntity.ok("Added to favorites");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

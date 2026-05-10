@@ -70,4 +70,13 @@ public class PropertyService {
     public List<Property> searchProperties(String keyword) {
         return repository.findByPropertyNameContainingIgnoreCase(keyword);
     }
+
+
+    public Property updatePropertyStatus(Long id, String newStatus) {
+        Property property = repository.findById(id).orElse(null);
+        if (property == null) return null;
+        property.setAvailabilityStatus(newStatus);
+        return repository.save(property);
+    }
+
 }

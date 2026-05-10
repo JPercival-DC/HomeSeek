@@ -189,7 +189,7 @@ function Profile() {
                         <h1>{user?.name}</h1>
                         <p className="profile-email">{user?.email}</p>
                         <p className="profile-role">
-                            Role: <span className={`role-badge role-${user?.role}`}>{user?.role}</span>
+                            <span className={`role-badge role-${user?.role}`}>{user?.role}</span>
                         </p>
                         {user?.phone && <p className="profile-phone">📞 {user.phone}</p>}
                     </div>

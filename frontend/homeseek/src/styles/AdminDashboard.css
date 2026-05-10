@@ -277,6 +277,29 @@
     font-weight: 600;
 }
 
+.btn-approve {
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.pending-badge {
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 12px;
+    margin-left: 6px;
+}
+
+.role-pending  { background-color: #f59e0b; color: white; padding: 2px 8px; border-radius: 4px; }
+.role-available { background-color: #22c55e; color: white; padding: 2px 8px; border-radius: 4px; }
+.role-rejected  { background-color: #ef4444; color: white; padding: 2px 8px; border-radius: 4px; }
+
 /* Loading */
 .loading {
     display: flex;

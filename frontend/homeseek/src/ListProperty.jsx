@@ -9,12 +9,11 @@ function ListProperty() {
         description: "",
         type: "",
         rooms: "",
-        availabilityStatus: "Available",
-        ownerId: "" // Add this
+        availabilityStatus: "Pending",
+        ownerId: "" 
     });
-
+ 
     useEffect(() => {
-        // Get current user from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         if (user) {
             setForm(prev => ({
@@ -23,14 +22,14 @@ function ListProperty() {
             }));
         }
     }, []);
-
+ 
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
-
+ 
     async function handleSubmit(e) {
         e.preventDefault();
-
+ 
         const user = JSON.parse(localStorage.getItem("user"));
         
         const newProperty = {
@@ -43,7 +42,7 @@ function ListProperty() {
             availabilityStatus: form.availabilityStatus,
             ownerId: form.ownerId
         };
-
+ 
         try {
             const response = await fetch("http://localhost:8080/api/properties", {
                 method: "POST",
@@ -54,9 +53,9 @@ function ListProperty() {
                 },
                 body: JSON.stringify(newProperty)
             });
-
+ 
             if (response.ok) {
-                alert("Property Added Successfully!");
+                alert("Property submitted! It will be visible once approved by an admin.");
                 setForm({
                     propertyName: "",
                     address: "",
@@ -64,7 +63,7 @@ function ListProperty() {
                     description: "",
                     type: "",
                     rooms: "",
-                    availabilityStatus: "Available",
+                    availabilityStatus: "Pending",
                     ownerId: user.userId
                 });
             } else {
@@ -76,11 +75,11 @@ function ListProperty() {
             alert("Error connecting to server");
         }
     }
-
+ 
     return (
         <div className="add-property-page">
             <h2>Add Property</h2>
-
+ 
             <form className="property-form" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -90,7 +89,7 @@ function ListProperty() {
                     onChange={handleChange}
                     required
                 />
-
+ 
                 <input
                     type="text"
                     name="address"
@@ -99,7 +98,7 @@ function ListProperty() {
                     onChange={handleChange}
                     required
                 />
-
+ 
                 <input
                     type="number"
                     name="price"
@@ -108,7 +107,7 @@ function ListProperty() {
                     onChange={handleChange}
                     required
                 />
-
+ 
                 <input
                     type="text"
                     name="description"
@@ -116,7 +115,7 @@ function ListProperty() {
                     value={form.description}
                     onChange={handleChange}
                 />
-
+ 
                 <input
                     type="text"
                     name="type"
@@ -124,7 +123,7 @@ function ListProperty() {
                     value={form.type}
                     onChange={handleChange}
                 />
-
+ 
                 <input
                     type="number"
                     name="rooms"
@@ -132,7 +131,7 @@ function ListProperty() {
                     value={form.rooms}
                     onChange={handleChange}
                 />
-
+ 
                 <button className="submit-btn" type="submit">
                     Submit Property
                 </button>
@@ -140,5 +139,5 @@ function ListProperty() {
         </div>
     );
 }
-
+ 
 export default ListProperty;

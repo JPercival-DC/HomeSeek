@@ -47,7 +47,6 @@ function Login() {
             console.log("Stored role:", stored.role);
 
             window.dispatchEvent(new Event("storage"));
-            alert("Login successful!");
             navigate("/");
 
         } catch (error) {
