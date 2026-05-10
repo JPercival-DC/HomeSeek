@@ -9,15 +9,16 @@ public class Review {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reviewid")
     private Long reviewID;
     
-    @Column(nullable = false)
-    private Integer rating; // 1-5
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
     
-    @Column(length = 1000)
+    @Column(name = "comment", length = 1000)
     private String comment;
     
-    @Column(nullable = false)
+    @Column(name = "review_date", nullable = false)
     private LocalDate reviewDate;
     
     @ManyToOne
@@ -25,7 +26,11 @@ public class Review {
     private UserEntity user;
     
     @ManyToOne
-    @JoinColumn(name = "boarding_id", nullable = false)
+    @JoinColumn(name = "property_id")
+    private Property property;
+    
+    @ManyToOne
+    @JoinColumn(name = "boarding_id")
     private BoardingHouse boardingHouse;
     
     // Constructors
@@ -46,6 +51,9 @@ public class Review {
     
     public UserEntity getUser() { return user; }
     public void setUser(UserEntity user) { this.user = user; }
+    
+    public Property getProperty() { return property; }
+    public void setProperty(Property property) { this.property = property; }
     
     public BoardingHouse getBoardingHouse() { return boardingHouse; }
     public void setBoardingHouse(BoardingHouse boardingHouse) { this.boardingHouse = boardingHouse; }

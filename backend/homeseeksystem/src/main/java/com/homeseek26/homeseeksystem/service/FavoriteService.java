@@ -14,11 +14,24 @@ public class FavoriteService {
     private FavoriteRepository favoriteRepository;
     
     public Favorite addToFavorites(Favorite favorite) {
-        if (favoriteRepository.existsByUser_UserIdAndBoardingHouse_BoardingID(
-                favorite.getUser().getUserId(), 
-                favorite.getBoardingHouse().getBoardingID())) {
-            throw new RuntimeException("Property already in favorites");
+        // Check if already exists for property
+        if (favorite.getProperty() != null && favorite.getProperty().getPropertyId() != null) {
+            if (favoriteRepository.existsByUser_UserIdAndProperty_PropertyId(
+                    favorite.getUser().getUserId(), 
+                    favorite.getProperty().getPropertyId())) {
+                throw new RuntimeException("Property already in favorites");
+            }
         }
+        
+        // Check if already exists for boarding house
+        if (favorite.getBoardingHouse() != null && favorite.getBoardingHouse().getBoardingID() != null) {
+            if (favoriteRepository.existsByUser_UserIdAndBoardingHouse_BoardingID(
+                    favorite.getUser().getUserId(), 
+                    favorite.getBoardingHouse().getBoardingID())) {
+                throw new RuntimeException("Boarding house already in favorites");
+            }
+        }
+        
         favorite.setDateSaved(LocalDateTime.now());
         return favoriteRepository.save(favorite);
     }
@@ -44,11 +57,39 @@ public class FavoriteService {
         return favoriteRepository.findByBoardingHouse_BoardingID(boardingId);
     }
     
+    public List<Favorite> getFavoritesByProperty(Long propertyId) {
+        return favoriteRepository.findByProperty_PropertyId(propertyId);
+    }
+    
     public boolean isFavorite(Long userId, Long boardingId) {
         return favoriteRepository.existsByUser_UserIdAndBoardingHouse_BoardingID(userId, boardingId);
     }
     
-    public void removeFromFavoritesByUserAndProperty(Long userId, Long boardingId) {
-        favoriteRepository.deleteByUser_UserIdAndBoardingHouse_BoardingID(userId, boardingId);
+    public boolean isFavoriteByProperty(Long userId, Long propertyId) {
+        if (propertyId == null) return false;
+        return favoriteRepository.existsByUser_UserIdAndProperty_PropertyId(userId, propertyId);
     }
+    
+    public boolean isFavoriteByBoardingHouse(Long userId, Long boardingId) {
+        if (boardingId == null) return false;
+        return favoriteRepository.existsByUser_UserIdAndBoardingHouse_BoardingID(userId, boardingId);
+    }
+    
+    public void removeFromFavoritesByUserAndProperty(Long userId, Long propertyId) {
+        if (propertyId != null) {
+            favoriteRepository.deleteByUser_UserIdAndProperty_PropertyId(userId, propertyId);
+        }
+    }
+    
+    public void removeFromFavoritesByUserAndBoardingHouse(Long userId, Long boardingId) {
+        if (boardingId != null) {
+            favoriteRepository.deleteByUser_UserIdAndBoardingHouse_BoardingID(userId, boardingId);
+        }
+    }
+    
+    public int getFavoriteCountByProperty(Long propertyId) {
+        if (propertyId == null) return 0;
+        return favoriteRepository.countByProperty_PropertyId(propertyId);
+    }
+
 }

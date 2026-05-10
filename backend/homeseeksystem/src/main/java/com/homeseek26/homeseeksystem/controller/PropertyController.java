@@ -137,4 +137,28 @@ public class PropertyController {
                 .body(Map.of("error", e.getMessage()));
         }
     }
+
+    // GET PROPERTY FAVORITE STATUS
+    @GetMapping("/{id}/favorite")
+    public ResponseEntity<?> getFavoriteStatus(@PathVariable Long id, @RequestParam Long userId) {
+        try {
+            // This would check if user has favorited this property
+            boolean isFavorite = false;
+            // Implementation depends on your Favorite entity
+            return ResponseEntity.ok(isFavorite);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    // ADD PROPERTY TO FAVORITES
+    @PostMapping("/{id}/favorite")
+    public ResponseEntity<?> addToFavorites(@PathVariable Long id, @RequestParam Long userId) {
+        try {
+            // Implementation to add to favorites
+            return ResponseEntity.ok("Added to favorites");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

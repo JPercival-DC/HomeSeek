@@ -9,9 +9,10 @@ public class Favorite {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "favoriteid")  // Changed from favorite_id to favoriteid
     private Long favoriteID;
     
-    @Column(nullable = false)
+    @Column(name = "date_saved", nullable = false)
     private LocalDateTime dateSaved;
     
     @ManyToOne
@@ -19,7 +20,11 @@ public class Favorite {
     private UserEntity user;
     
     @ManyToOne
-    @JoinColumn(name = "boarding_id", nullable = false)
+    @JoinColumn(name = "property_id")
+    private Property property;
+    
+    @ManyToOne
+    @JoinColumn(name = "boarding_id")
     private BoardingHouse boardingHouse;
     
     // Constructors
@@ -34,6 +39,9 @@ public class Favorite {
     
     public UserEntity getUser() { return user; }
     public void setUser(UserEntity user) { this.user = user; }
+    
+    public Property getProperty() { return property; }
+    public void setProperty(Property property) { this.property = property; }
     
     public BoardingHouse getBoardingHouse() { return boardingHouse; }
     public void setBoardingHouse(BoardingHouse boardingHouse) { this.boardingHouse = boardingHouse; }

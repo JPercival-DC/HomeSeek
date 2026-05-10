@@ -8,9 +8,7 @@ public interface BookingRequestRepository extends JpaRepository<BookingRequest, 
     
     List<BookingRequest> findByTenant_UserId(Long userId);
     
-    List<BookingRequest> findByBoardingHouse_BoardingID(Long boardingID);
-    
-    List<BookingRequest> findByBoardingHouse_Owner_UserId(Long ownerId);
+    List<BookingRequest> findByProperty_PropertyId(Long propertyId);
     
     List<BookingRequest> findByStatus(String status);
     

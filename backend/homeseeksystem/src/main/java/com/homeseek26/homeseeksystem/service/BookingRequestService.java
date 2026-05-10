@@ -14,8 +14,12 @@ public class BookingRequestService {
     private BookingRequestRepository bookingRequestRepository;
     
     public BookingRequest createBookingRequest(BookingRequest bookingRequest) {
-        bookingRequest.setRequestDate(LocalDateTime.now());
-        bookingRequest.setStatus("PENDING");
+        if (bookingRequest.getRequestDate() == null) {
+            bookingRequest.setRequestDate(LocalDateTime.now());
+        }
+        if (bookingRequest.getStatus() == null) {
+            bookingRequest.setStatus("PENDING");
+        }
         return bookingRequestRepository.save(bookingRequest);
     }
     
@@ -39,26 +43,24 @@ public class BookingRequestService {
     }
     
     public List<BookingRequest> getByTenant(Long tenantId) {
-        return bookingRequestRepository.findByTenant_UserId(tenantId);
+        try {
+            System.out.println("Service: Getting bookings for tenant: " + tenantId);
+            List<BookingRequest> bookings = bookingRequestRepository.findByTenant_UserId(tenantId);
+            System.out.println("Service: Found " + bookings.size() + " bookings");
+            return bookings;
+        } catch (Exception e) {
+            System.err.println("Service error: " + e.getMessage());
+            return List.of();
+        }
     }
     
-    public List<BookingRequest> getByBoardingHouse(Long boardingId) {
-        return bookingRequestRepository.findByBoardingHouse_BoardingID(boardingId);
-    }
-    
-    public List<BookingRequest> getByOwner(Long ownerId) {
-        return bookingRequestRepository.findByBoardingHouse_Owner_UserId(ownerId);
+    public List<BookingRequest> getByProperty(Long propertyId) {
+        return bookingRequestRepository.findByProperty_PropertyId(propertyId);
     }
     
     public List<BookingRequest> getByStatus(String status) {
         return bookingRequestRepository.findByStatus(status);
     }
-    
-    public BookingRequest approveBooking(Long id) {
-        return updateBookingRequestStatus(id, "APPROVED");
-    }
-    
-    public BookingRequest rejectBooking(Long id) {
-        return updateBookingRequestStatus(id, "REJECTED");
-    }
+
+
 }
